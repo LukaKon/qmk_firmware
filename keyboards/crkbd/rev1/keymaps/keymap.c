@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 //#include <stdio.h>
 
+// #include "tap_dance_action.h"
+
 // Tap dance declaration
 enum {
     TD_ESC_CAPS,
@@ -28,7 +30,7 @@ enum {
 };
 
 // Tap dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for ESCAPE, twice for Caps Lock
     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
     // Tap once for semicolon, twice for colon
@@ -39,17 +41,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //COLEMAK
-  // [0] = LAYOUT_split_3x6_3(
-  // //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-  //     XXXXXXX,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                        KC_J,    KC_L,    KC_U,    KC_Y, KC_ESC, XXXXXXX,
-  // //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //     CTL_T(KC_TAB),  KC_A, KC_R, KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,   KC_O,    KC_ESC,
-  // //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  //     KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, QK_GESC,
-  // //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-  //                           LGUI(KC_ESC),   LT(2,KC_TAB),  LSFT_T(KC_SPC),    RALT_T(KC_ENT),   LT(1,KC_BSPC), LALT_T(KC_DELETE)
-  //                                     //`--------------------------'  `--------------------------'
-  // ),
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                        KC_J,    KC_L,    KC_U,    KC_Y, TD(TD_SEMICOLON_COLON), XXXXXXX,
@@ -77,7 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, TD(TD_BACKTICK_TILDE), KC_EXCLAIM, KC_AT, KC_HASH, KC_LPRN,                     KC_RPRN, KC_EQL,  KC_PLUS, KC_MINS, KC_QUOT, XXXXXXX,
-      // XXXXXXX, KC_TAB, KC_EXCLAIM, KC_AT, KC_HASH, KC_LPRN,                     KC_RPRN, KC_EQL,  KC_PLUS, KC_MINS, KC_QUOT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, KC_LBRC,                      KC_RBRC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -280,26 +270,26 @@ if (current_wpm > 0) {
     }
 }
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     switch (get_highest_layer(state)) {
-//     case 0:
-//         rgb_matrix_reload_from_eeprom();
-//         break;
-//     case 1:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-//         rgb_matrix_sethsv_noeeprom(HSV_TEAL);
-//         break;
-//     case 2:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-//         rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
-//         break;
-//     case 5:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
-//         rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
-//         break;
-//     }
-//   return state;
-// }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case 0:
+        rgb_matrix_reload_from_eeprom();
+        break;
+    case 1:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_TEAL);
+        break;
+    case 2:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+        break;
+    case 5:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_ALPHAS_MODS);
+        rgb_matrix_sethsv_noeeprom(HSV_YELLOW);
+        break;
+    }
+  return state;
+}
 
 static void print_status_narrow(void) {
    
