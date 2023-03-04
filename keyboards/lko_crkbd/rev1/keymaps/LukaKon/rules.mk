@@ -1,4 +1,4 @@
-# DEFAULT_FOLDER = lko_crkbd/rev1
+DEFAULT_FOLDER = lko_crkbd/rev1
 SRC += keymap.c
 MOUSEKEY_ENABLE = yes     # Mouse keys
 VIA_ENABLE      = yes    # Enable VIA
