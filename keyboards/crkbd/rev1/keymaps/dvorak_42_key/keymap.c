@@ -10,6 +10,8 @@ enum {
     TD_ESC_CAPS = 0,
     TD_SEMICOLON_COLON,
     TD_BACKTICK_TILDE,
+    TD_LBRC_LCBR,
+    TD_RBRC_RCBR,
 };
 
 // #define T_ESC   TD(TD_ESC_CAPS)          // Tap for ESC, double tap for CAPSLOCK
@@ -24,13 +26,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SEMICOLON, KC_COLON),
     // Tap once for backtick, twice for tilde
     [TD_BACKTICK_TILDE] = ACTION_TAP_DANCE_DOUBLE(KC_GRAVE, KC_TILD),
-};
+    // Tap once for [, twice for {
+    [TD_LBRC_LCBR]=ACTION_TAP_DANCE_DOUBLE(KC_LBRC,KC_LCBR),
+    // Tap once for ], twice }
+    [TD_RBRC_RCBR]=ACTION_TAP_DANCE_DOUBLE(KC_RBRC,KC_RCBR),
+  };
 
 enum {
   BASE,
   FNUM,
   SYMBOLS,
-  MAUSE,
+  CURSOR,
   SHORT,
 };
 
@@ -42,61 +48,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       CTL_T(KC_TAB),  KC_A, KC_R, KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,   KC_O,    TD(TD_ESC_CAPS),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, QK_GESC,
+      XXXXXXX,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                LGUI_T(KC_ESC), LT(SYMBOLS,KC_TAB), LSFT_T(KC_SPC),    RALT_T(KC_ENT), LT(FNUM,KC_BSPC), LALT_T(KC_DELETE)
+            GUI_T(KC_DELETE), LT(SYMBOLS,KC_TAB), LSFT_T(KC_SPC),    RALT_T(KC_ENT), LT(FNUM,KC_BSPC), LALT_T(KC_ESC)
                                       //`--------------------------'  `--------------------------'
   ),
 
   // Numpad and function keys
   [FNUM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_F1,   KC_F2,  KC_F3,   KC_F4,   XXXXXXX,                       KC_PGUP, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_LPRN,                       KC_RPRN, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,                      XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,   XXXXXXX,
+      _______, KC_F5,   KC_F6,   KC_F7,   KC_F8, TD(TD_LBRC_LCBR),       TD(TD_RBRC_RCBR), KC_4,    KC_5,    KC_6,    KC_0,   XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                      KC_PGDN,   KC_1,    KC_2,    KC_3,  KC_DOT, XXXXXXX,
+      XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_LT,                        KC_GT,   KC_1,    KC_2,    KC_3,    KC_DOT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    _______, MO(MAUSE),  _______,     _______, _______,  _______
+                                    _______, MO(CURSOR),  _______,     _______, _______,  _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   // Symbols and brackets and cursors
   [SYMBOLS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, TD(TD_BACKTICK_TILDE), KC_EXCLAIM, KC_AT, KC_HASH, KC_LPRN,                      KC_RPRN, KC_EQL, KC_PLUS, KC_MINS, KC_QUOT, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_EXCLAIM, KC_AT, KC_HASH, XXXXXXX,                     XXXXXXX, KC_MINS, KC_EQL,  KC_PLUS, KC_QUOT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, KC_LBRC,                      KC_RBRC, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
+      _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, XXXXXXX,        TD(TD_BACKTICK_TILDE), KC_UNDS, KC_QUES, KC_PIPE, KC_BSLS, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, KC_LT,                         KC_GT,   KC_UNDS, KC_QUES, KC_PIPE, KC_BSLS, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, MO(MAUSE),  _______
+                                          _______, _______, _______,    _______, MO(SHORT),  _______
                                       //`--------------------------'  `--------------------------'
     ),
 
-  // Mause manipulation
-  [MAUSE] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3,  XXXXXXX,                               XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX, KC_WH_D, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
-                                        _______,  _______, _______,              _______, _______, _______
-                                      //`--------------------------'            `--------------------------'
+  // Cursors manipulation
+  [CURSOR] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        _______,  _______, _______,    _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
   ),
   // Shortcuts & macros
   [SHORT] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                              ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                              |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                               XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|            |--------+--------+--------+--------+--------+--------+--------|
-                                        _______,  _______, _______,              _______, _______, _______
-                                      //`--------------------------'            `--------------------------'
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        _______,  _______, _______,    _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
   ),
 
 
@@ -125,7 +131,7 @@ void oled_render_layer_state(void) {
   //     oled_write_ln_P(PSTR("CAPS WORD"), false);
   //     return;
   // }
-  DISPLAY_LAYER_NAME(MAUSE, "MAUSE");
+  DISPLAY_LAYER_NAME(CURSOR, "CURSOR");
   DISPLAY_LAYER_NAME(SYMBOLS, "SYMBOLS");
   DISPLAY_LAYER_NAME(FNUM, "FUNC & NUM");
   DISPLAY_LAYER_NAME(BASE, "BASE");
