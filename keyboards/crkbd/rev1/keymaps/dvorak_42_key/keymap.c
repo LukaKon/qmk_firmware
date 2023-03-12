@@ -70,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Symbols and brackets and cursors
   [SYMBOLS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, KC_EXCLAIM, KC_AT, KC_HASH, XXXXXXX,                     XXXXXXX, KC_MINS, KC_EQL,  KC_PLUS, KC_QUOT, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_EXCLAIM, KC_AT, KC_HASH, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, XXXXXXX,        TD(TD_BACKTICK_TILDE), KC_UNDS, KC_QUES, KC_PIPE, KC_BSLS, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, XXXXXXX,                       XXXXXXX, KC_MINS, KC_EQL,  KC_PLUS, KC_QUOT, XXXXXXX,                      
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, MO(SHORT),  _______
                                       //`--------------------------'  `--------------------------'
