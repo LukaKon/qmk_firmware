@@ -12,11 +12,8 @@ enum {
     TD_BACKTICK_TILDE,
     TD_LBRC_LCBR,
     TD_RBRC_RCBR,
+    TD_QUOT_DQUO,
 };
-
-// #define T_ESC   TD(TD_ESC_CAPS)          // Tap for ESC, double tap for CAPSLOCK
-// #define T_COLON TD(TD_SEMICOLON_COLON)   // Tap once for semicolon, twice for colon
-// #define T_TILD  TD(TD_BACKTICK_TILDE)    // Tap once for backtick, twice for tilde
 
 // qk_tap_dance_action_t tap_dance_actions[] = {
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -27,9 +24,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for backtick, twice for tilde
     [TD_BACKTICK_TILDE] = ACTION_TAP_DANCE_DOUBLE(KC_GRAVE, KC_TILD),
     // Tap once for [, twice for {
-    [TD_LBRC_LCBR]=ACTION_TAP_DANCE_DOUBLE(KC_LBRC,KC_LCBR),
-    // Tap once for ], twice }
-    [TD_RBRC_RCBR]=ACTION_TAP_DANCE_DOUBLE(KC_RBRC,KC_RCBR),
+    [TD_LBRC_LCBR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
+    // Tap once for ], twice for }
+    [TD_RBRC_RCBR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+    // Tap once for ', twice for "
+    [TD_QUOT_DQUO] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),
   };
 
 enum {
@@ -46,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                        KC_J,    KC_L,    KC_U,    KC_Y, TD(TD_SEMICOLON_COLON), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      CTL_T(KC_TAB),  KC_A, KC_R, KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,   KC_O,    TD(TD_ESC_CAPS),
+      CTL_T(KC_TAB),  KC_A, KC_R, KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,   KC_O,    XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -72,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, KC_EXCLAIM, KC_AT, KC_HASH, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, XXXXXXX,        TD(TD_BACKTICK_TILDE), KC_MINS, KC_EQL, KC_PLUS, KC_QUOT, XXXXXXX,
+      _______, KC_CIRC, KC_AMPR, KC_PERC, KC_ASTR, XXXXXXX,        TD(TD_BACKTICK_TILDE), KC_MINS, KC_EQL, KC_PLUS, TD(TD_QUOT_DQUO), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, XXXXXXX,                       XXXXXXX, KC_UNDS, KC_QUES, KC_PIPE, KC_BSLS, XXXXXXX,                      
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
