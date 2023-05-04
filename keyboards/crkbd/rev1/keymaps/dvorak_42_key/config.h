@@ -24,6 +24,6 @@
 // ==============
 #define MOUSEKEY_TIME_TO_MAX 200
 
-#define SPLIT_OLED_ENABLE
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
+// #define SPLIT_OLED_ENABLE
+// #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 // #define OLED_FONT_WIDTH 7
