@@ -36,7 +36,7 @@ enum {
   FNUM,
   SYMBOLS,
   CURSOR,
-  SHORT,
+  UNITY,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       CTL_T(KC_TAB),  KC_A, KC_R, KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,   KC_O,    XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, XXXXXXX,
+      TT(UNITY), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_K,    KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
             GUI_T(KC_DELETE), LT(SYMBOLS,KC_TAB), LSFT_T(KC_SPC),    RALT_T(KC_ENT), LT(FNUM,KC_BSPC), LALT_T(KC_ESC)
                                       //`--------------------------'  `--------------------------'
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_LT,                        KC_GT,   KC_1,    KC_2,    KC_3,    KC_DOT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    _______, MO(CURSOR),  _______,     _______, _______,  _______
+                                    _______, _______,  _______,     _______, MO(CURSOR),  _______
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR, XXXXXXX,                       XXXXXXX, KC_UNDS, KC_QUES, KC_PIPE, KC_BSLS, XXXXXXX,                      
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, MO(SHORT),  _______
+                                          _______, _______, _______,    _______, MO(CURSOR),  _______
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -91,14 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,  _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
-  // Shortcuts & macros
-  [SHORT] = LAYOUT_split_3x6_3(
+  // Unity3d - 3D manipulation
+  [UNITY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, CTL_T(KC_TAB), KC_LALT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                         _______,  _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -134,7 +134,7 @@ void oled_render_layer_state(void) {
   DISPLAY_LAYER_NAME(SYMBOLS, "SYMBOLS");
   DISPLAY_LAYER_NAME(FNUM, "FUNC & NUM");
   DISPLAY_LAYER_NAME(BASE, "BASE");
-  DISPLAY_LAYER_NAME(SHORT, "SHORT & MACRO");
+  DISPLAY_LAYER_NAME(UNITY, "UNITY");
 
 }
 
