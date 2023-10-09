@@ -17,7 +17,7 @@
 #define SPLIT_WPM_ENABLE //Enable WPM across split keyboards (+268).
 #define NO_ACTION_ONESHOT
 
-#define TAPPING_TERM 175
+#define TAPPING_TERM 200
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM_PER_KEY
 
